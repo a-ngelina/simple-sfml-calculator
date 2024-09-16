@@ -3,7 +3,6 @@
 #include <SFML/System/Vector2.hpp>
 #include<iostream>
 
-//calculate the result
 void calculateTheResult(std::string &result, sf::String &myInput) {
 	std::string firstNum;
 	std::string operation;
@@ -38,8 +37,6 @@ void calculateTheResult(std::string &result, sf::String &myInput) {
 	myInput.clear();
 }
 
-//adding a backspace
-
 void deleteTheLastChar(sf::String &myInput) {
 	if (!myInput.isEmpty()) myInput.erase(myInput.getSize() - 1, 1);
 }
@@ -47,15 +44,12 @@ void deleteTheLastChar(sf::String &myInput) {
 int main() {
 	sf::RenderWindow window(sf::VideoMode(400, 400), "the most scientific calculator", sf::Style::Close | sf::Style::Titlebar);
 
-	//adding more colors
 	sf::Color darkGrey(93, 93, 93, 255);
 	sf::Color orange(195, 85, 23, 255);
 
-	//adding a font
 	sf::Font font;
 	font.loadFromFile("./Monument.ttf");
 	
-	//setting up input text
 	sf::String myInput;
 	std::string result;
 	sf::Text myText;
@@ -64,16 +58,6 @@ int main() {
 	myText.setCharacterSize(80);
 	myText.setFillColor(sf::Color::White);
 
-	/*result text
-	std::string result;
-	sf::Text resultText;
-	resultText.setPosition(30, 10);
-	resultText.setFont(font);
-	resultText.setCharacterSize(80);
-	resultText.setFillColor(sf::Color::White);
-	*/
-
-	//rectangles for buttons
 	sf::RectangleShape acButton;
 	acButton.setSize(sf::Vector2f(80, 40));
 	acButton.setFillColor(orange);
@@ -159,7 +143,6 @@ int main() {
 	equalButton.setFillColor(darkGrey);
 	equalButton.setPosition(310, 290);
 
-	//adding button names
 	sf::Text ac("AC", font, 30);
 	ac.setPosition(35, 110);
 
@@ -217,11 +200,9 @@ int main() {
 		
 
 		while (window.pollEvent(event)) {
-			//close the window
 			if (event.type == event.Closed) {
 				window.close();
 			}
-			//read input from keyboard
 			if (event.type == sf::Event::TextEntered && ((event.text.unicode >= 48 && event.text.unicode <= 57) || event.text.unicode == 42 || event.text.unicode == 43 || event.text.unicode == 45 || event.text.unicode == 46 || event.text.unicode == 47)) {
 				myInput += event.text.unicode;
 				myText.setString(myInput);
@@ -231,13 +212,11 @@ int main() {
 				myText.setString(result);
 			}
 
-			//delete the last character
 			if (event.type == sf::Event::KeyReleased && (event.key.code == sf::Keyboard::Backspace)) {
 				deleteTheLastChar(myInput);
 				myText.setString(myInput);
 			}
 
-			//read input using mouse
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 				sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 				if (mousePosition.x >= 10 && mousePosition.x <= 90 && mousePosition.y >= 290 && mousePosition.y <= 330) myInput += "1";
